@@ -30,6 +30,63 @@ namespace CSAdv31
     }
     internal class Program
     {
+
+        struct Point
+        {
+            public int x;
+            public int y;
+            public string testA;
+            public string testB;
+
+            // 구조체 -> 기본 생성자 사용 X
+            // 구조체 생성자 -> 변수가 모두 초기화 되어야 함
+            public Point(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+                testA = null;
+                testB = "init";
+            }
+            public Point(int x, int y, string test)
+            {
+                this.x = x;
+                this.y = y;
+                testA = null;
+                testB = "init";
+            }
+        }
+
+        class PointClass
+        {
+            public int x;
+            public int y;
+
+            public PointClass(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        struct PointStruct
+        {
+            public int x;
+            public int y;
+
+            public PointStruct(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        static void NextPosition(int x, int y, int vx, int vy, out int rx, out int ry)
+        {
+            rx = x + vx;
+            ry = y + vy;
+        }
+
+
         static void Main(string[] args)
         {
             Wanted<string> wantedString = new Wanted<string>("string");
@@ -58,6 +115,28 @@ namespace CSAdv31
             {
                 Console.WriteLine("숫자를 입력해주세요");
             }
+
+            int x = 0;
+            int y = 0;
+            int vx = 1;
+            int vy = 1;
+            Console.WriteLine("현재 좌표: (" + x + ", " + y + ")");
+            NextPosition(x, y, vx, vy, out x, out y);
+            Console.WriteLine("현재 좌표: (" + x + ", " + y + ")");
+
+            PointClass pCA = new PointClass(10, 20);
+            PointClass pCB = pCA; // 참조 복사 (pCA와 pCB는 동일 객체를 바라본다)
+            pCB.x = 100;
+            pCB.y = 100;
+            Console.WriteLine("pCA: {0}, {1}", pCA.x, pCA.y); // 100, 100
+            Console.WriteLine("pCB: {0}, {1}", pCB.x, pCB.y); // 100, 100
+
+            PointStruct pSA = new PointStruct(10, 20);
+            PointStruct pSB = pSA; // 값 복사 (pSA와 pSB는 별개의 변수)
+            pSB.x = 100;
+            pSB.y = 100;
+            Console.WriteLine("pSA: {0}, {1}", pSA.x, pSA.y); // 10, 20
+            Console.WriteLine("pSB: {0}, {1}", pSB.x, pSB.y); // 100, 100
         }
     }
 }
